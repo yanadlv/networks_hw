@@ -35,3 +35,31 @@ Switch(config-if)#switchport trunk allowed vlan 10,20
 Switch(config-if)#exit
 Switch(config)#exit
 ```
+
+### Sw2
+
+```
+➜  ~ telnet 192.168.205.133 32772
+Switch>enable
+Switch#configure terminal
+Switch(config)#vlan 10
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#exit
+
+Switch(config)#interface e0/0
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+
+Switch(config-if)#interface e0/1
+Switch(config-if)#switchport trunk encapsulation dot1q 
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#interface e0/2                      
+Switch(config-if)#switchport trunk encapsulation dot1q
+Switch(config-if)#switchport mode trunk               
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#exit
+Switch(config)#exit
+```
