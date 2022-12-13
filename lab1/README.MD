@@ -11,6 +11,7 @@
 ### Sw1
 
 ```
+➜  ~ telnet 192.168.205.133 32771
 Switch>enable
 Switch#configure terminal
 Switch(config)#vlan 10
