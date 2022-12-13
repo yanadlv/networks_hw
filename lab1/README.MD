@@ -63,3 +63,42 @@ Switch(config-if)#switchport trunk allowed vlan 10,20
 Switch(config-if)#exit
 Switch(config)#exit
 ```
+
+3. Настроим коммутатор уровня распределения (Sw3).
+
+Для начала добавим VLAN-ы и установим всем интерфейсам состояние `trunk`.
+
+```
+➜  ~ telnet 192.168.205.133 32773
+Switch>enable
+Switch#configure terminal
+Switch(config)#vlan 10
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#exit
+
+Switch(config)#interface e0/0
+Switch(config-if)#switchport trunk encapsulation dot1q 
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#interface e0/1
+Switch(config-if)#switchport trunk encapsulation dot1q 
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#interface e0/2                      
+Switch(config-if)#switchport trunk encapsulation dot1q
+Switch(config-if)#switchport mode trunk               
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#exit
+Switch(config)#exit
+```
+
+Не забудем, что в сети нужно настроить протокол STP. Установим Sw3 корневым для обоих VLAN. Тогда линк между коммутаторами уровня доступ (Sw1, Sw2) заблокируется (по алгоритму протокола STP, аналогичная ситуация была рассмотрена на семинаре).
+
+```
+Switch#configure terminal                
+Switch(config)#spanning-tree vlan 10,20 root primary
+Switch(config)#exit   
+```
