@@ -13,11 +13,12 @@ def mtu_check(mtu, host):
 
     if platform.system().lower() == 'darwin':
         if result.returncode == 0:
-            return 0, None
+            return 0
         elif result.returncode == 2:
-            return 2, None
+            return 1
         else:
-            return -1, result.stderr
+            print("ERROR: operation failed,", checker[1])
+            exit(1)
     else:
         return result.returncode, result.stderr
 
@@ -25,14 +26,10 @@ def mtu_check(mtu, host):
 def bin_search(L, R, host):
     while R - L > 1:
         mid_mtu = (L + R) // 2
-        checker = mtu_check(mid_mtu, host)
-        if not checker[0]:
+        if not mtu_check(mid_mtu, host):
             L = mid_mtu
-        elif checker[0] == 2:
-            R = mid_mtu
         else:
-            print("ERROR: operation failed,", checker[1])
-            exit(1)
+            R = mid_mtu
     return L + 28
 
 
