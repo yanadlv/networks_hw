@@ -17,7 +17,7 @@ def mtu_check(mtu, host):
         elif result.returncode == 2:
             return 1
         else:
-            print("ERROR: operation failed,", checker[1])
+            print("ERROR: operation failed,", result.stderr)
             exit(1)
     else:
         return result.returncode, result.stderr
