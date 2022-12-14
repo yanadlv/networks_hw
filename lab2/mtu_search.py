@@ -1,6 +1,5 @@
 import sys
 import subprocess
-import platform
 import validators
 
 
@@ -8,9 +7,8 @@ def mtu_check(mtu, host):
     try:
         checker_command = ['ping', host, '-s', str(mtu), '-c', '1', '-M', 'do']
         result = subprocess.run(checker_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    except ERROR:
-        print("ERROR: operation failed,", result.stderr)
-        exit(1)
+    except Exception:
+        raise Exception("ERROR: operation failed")
     return result.returncode
 
 
