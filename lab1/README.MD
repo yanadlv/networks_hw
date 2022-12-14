@@ -34,6 +34,7 @@ Switch(config-if)#switchport trunk allowed vlan 10,20
 
 Switch(config-if)#exit
 Switch(config)#exit
+Switch#write
 ```
 
 ### Sw2
@@ -62,6 +63,7 @@ Switch(config-if)#switchport trunk allowed vlan 10,20
 
 Switch(config-if)#exit
 Switch(config)#exit
+Switch#write
 ```
 
 ## 3. Настроим коммутатор уровня распределения (Sw3).
@@ -100,7 +102,8 @@ Switch(config)#exit
 ```
 Switch#configure terminal                
 Switch(config)#spanning-tree vlan 10,20 root primary
-Switch(config)#exit   
+Switch(config)#exit
+Switch#write
 ```
 
 ## 3. Настроим маршрутизатор (R).
@@ -125,6 +128,7 @@ Router(config-subif)#ip address 10.0.20.1 255.255.255.0
 
 Router(config-subif)#exit
 Router(config)#exit
+Switch#write
 ```
 
 ## 4. Настроим клиентов сети (Client1, Client2).
@@ -134,11 +138,15 @@ Router(config)#exit
 ### Client1
 
 ```
+➜  ~ telnet 192.168.205.133 32769
 VPCS> ip 10.0.10.1/24 10.0.10.2
+VPCS> write
 ```
 
 ### Client2
 
 ```
+➜  ~ telnet 192.168.205.133 32770
 VPCS> ip 10.0.20.1/24 10.0.20.2
+VPCS> write
 ```
