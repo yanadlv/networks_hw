@@ -5,20 +5,13 @@ import validators
 
 
 def mtu_check(mtu, host):
-    checker_command = f"ping {host} -s {mtu} -c 1 -D"
-    result = subprocess.Popen(checker_command,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.STDOUT,
-                              shell=True)
-
-    if platform.system().lower() == 'darwin':
-        if result.returncode == 0:
-            return 0
-        elif result.returncode == 2:
-            return 1
-        else:
-            print("ERROR: operation failed,", result.stderr)
-            exit(1)
+    try:
+        checker_command = ['ping', host, '-s', str(mtu), '-c', '1', '-M', 'do']
+        result = subprocess.run(checker_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except ERROR:
+        print("ERROR: operation failed,", result.stderr)
+        exit(1)
+    return result.returncode
 
 
 def bin_search(L, R, host):
