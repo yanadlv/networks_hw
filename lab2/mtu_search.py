@@ -32,8 +32,8 @@ if not validators.domain(host):
     exit(1)
 
 icmp_check = "cat /proc/sys/net/ipv4/icmp_echo_ignore_all"  # https://askubuntu.com/questions/637470/how-to-check-if-icmp-blocking-is-enabled-in-a-system
-result = subprocess.run(icmp_check, stdout=subprocess.PIPE, stderr=subprocess.PIPE, capture_output=True)
-if result.stdout:
+result = subprocess.run(icmp_check, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+if result.wait() != 0:
     print("ICMP blocked")
     exit(1)
 
