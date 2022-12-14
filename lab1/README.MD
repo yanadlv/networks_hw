@@ -21,17 +21,18 @@ Switch(config-vlan)#exit
 Switch(config)#interface e0/0
 Switch(config-if)#switchport mode access
 Switch(config-if)#switchport access vlan 10
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/1
+Switch(config)#interface e0/1
 Switch(config-if)#switchport trunk encapsulation dot1q 
 Switch(config-if)#switchport mode trunk
 Switch(config-if)#switchport trunk allowed vlan 10,20
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/2                      
+Switch(config)#interface e0/2                      
 Switch(config-if)#switchport trunk encapsulation dot1q
 Switch(config-if)#switchport mode trunk               
 Switch(config-if)#switchport trunk allowed vlan 10,20
-
 Switch(config-if)#exit
 Switch(config)#exit
 Switch#write
@@ -50,17 +51,18 @@ Switch(config-vlan)#exit
 Switch(config)#interface e0/0
 Switch(config-if)#switchport mode access
 Switch(config-if)#switchport access vlan 20
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/1
+Switch(config)#interface e0/1
 Switch(config-if)#switchport trunk encapsulation dot1q 
 Switch(config-if)#switchport mode trunk
 Switch(config-if)#switchport trunk allowed vlan 10,20
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/2                      
+Switch(config)#interface e0/2                      
 Switch(config-if)#switchport trunk encapsulation dot1q
 Switch(config-if)#switchport mode trunk               
 Switch(config-if)#switchport trunk allowed vlan 10,20
-
 Switch(config-if)#exit
 Switch(config)#exit
 Switch#write
@@ -82,17 +84,18 @@ Switch(config)#interface e0/0
 Switch(config-if)#switchport trunk encapsulation dot1q 
 Switch(config-if)#switchport mode trunk
 Switch(config-if)#switchport trunk allowed vlan 10,20
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/1
+Switch(config)#interface e0/1
 Switch(config-if)#switchport trunk encapsulation dot1q 
 Switch(config-if)#switchport mode trunk
 Switch(config-if)#switchport trunk allowed vlan 10,20
+Switch(config-if)#exit
 
-Switch(config-if)#interface e0/2                      
+Switch(config)#interface e0/2                      
 Switch(config-if)#switchport trunk encapsulation dot1q
 Switch(config-if)#switchport mode trunk               
 Switch(config-if)#switchport trunk allowed vlan 10,20
-
 Switch(config-if)#exit
 Switch(config)#exit
 ```
@@ -117,18 +120,19 @@ Router#configure terminal
 
 Router(config)#interface e0/0
 Router(config-if)#no shutdown
+Router(config-if)#exit
 
-Router(config-if)#interface e0/0.10
+Router(config)#interface e0/0.10
 Router(config-subif)#encapsulation dot1q 10
-Router(config-subif)#ip address 10.0.10.1 255.255.255.0
+Router(config-subif)#ip address 10.0.10.2 255.255.255.0
+Router(config-if)#exit
 
-Router(config-subif)#interface e0/0.20
+Router(config)#interface e0/0.20
 Router(config-subif)#encapsulation dot1q 20            
-Router(config-subif)#ip address 10.0.20.1 255.255.255.0
-
+Router(config-subif)#ip address 10.0.20.2 255.255.255.0
 Router(config-subif)#exit
 Router(config)#exit
-Switch#write
+Router#write
 ```
 
 ## 4. Настроим клиентов сети (Client1, Client2).
