@@ -102,3 +102,10 @@ Switch#configure terminal
 Switch(config)#spanning-tree vlan 10,20 root primary
 Switch(config)#exit   
 ```
+
+## 3. Настроим маршрутизатор (R).
+
+Здесь нужно задать конфигурацию интерфейсу `e0/0` и прописать айпишники у подинтерфейсов `e0/0.10` и `e0/0.20`.
+
+```
+```
