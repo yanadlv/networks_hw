@@ -39,7 +39,7 @@ Switch(config)#exit
 ### Sw2
 
 ```
-➜  ~ telnet 192.168.205.133 32772
+➜  ~ telnet 192.168.205.133 32773
 Switch>enable
 Switch#configure terminal
 Switch(config)#vlan 10
@@ -69,7 +69,7 @@ Switch(config)#exit
 Для начала добавим VLAN-ы и установим всем интерфейсам состояние `trunk`.
 
 ```
-➜  ~ telnet 192.168.205.133 32773
+➜  ~ telnet 192.168.205.133 32772
 Switch>enable
 Switch#configure terminal
 Switch(config)#vlan 10
