@@ -126,3 +126,19 @@ Router(config-subif)#ip address 10.0.20.1 255.255.255.0
 Router(config-subif)#exit
 Router(config)#exit
 ```
+
+## 4. Настроим клиентов сети (Client1, Client2).
+
+Осталось настроить клиентов. Тут все просто, нужно только задать айпишники.
+
+### Client1
+
+```
+VPCS> ip 10.0.10.1/24 10.0.10.2
+```
+
+### Client2
+
+```
+VPCS> ip 10.0.20.1/24 10.0.20.2
+```
