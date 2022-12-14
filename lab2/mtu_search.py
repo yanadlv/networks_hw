@@ -31,7 +31,7 @@ def bin_search(L, R, host):
         elif checker[0] == 2:
             R = mid_mtu
         else:
-            print("ERROR: operation failed:", checker[1])
+            print("ERROR: operation failed,", checker[1])
             exit(1)
     return L + 28
 
