@@ -19,8 +19,6 @@ def mtu_check(mtu, host):
         else:
             print("ERROR: operation failed,", result.stderr)
             exit(1)
-    else:
-        return result.returncode, result.stderr
 
 
 def bin_search(L, R, host):
