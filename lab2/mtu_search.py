@@ -5,11 +5,11 @@ import validators
 
 
 def mtu_check(mtu, host):
-    checker_command = ['ping', host, '-s', mtu, '-c', '1', '-D']
+    checker_command = f"ping {host} -s {mtu} -c 1 -D"
     result = subprocess.Popen(checker_command,
-                         stdout=subprocess.PIPE,
-                         stderr=subprocess.STDOUT,
-                         shell=True)
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.STDOUT,
+                              shell=True)
 
     if platform.system().lower() == 'darwin':
         if result.returncode == 0:
