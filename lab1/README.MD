@@ -154,3 +154,29 @@ VPCS> write
 VPCS> ip 10.0.20.1/24 10.0.20.2
 VPCS> write
 ```
+
+## Проверка ping
+
+### Client1
+
+![ping1](imgs/client1.png)
+
+### Client2
+
+![ping2](imgs/client2.png)
+
+## Проверка spanning-tree
+
+### Sw1 
+
+![tree1](imgs/sw1.png)
+
+### Sw2
+
+![tree2](imgs/sw2.png)
+
+### Sw3
+
+![tree3](imgs/sw3.png)
+
+Заметим, что сеть действительно отказоустойчива благодаря "избыточности" линков между Sw1-Sw2-Sw3. При отключении одного из интерфейсов spanning-tree просто перестроится.
