@@ -108,4 +108,21 @@ Switch(config)#exit
 Здесь нужно задать конфигурацию интерфейсу `e0/0` и прописать айпишники у подинтерфейсов `e0/0.10` и `e0/0.20`.
 
 ```
+➜  ~ telnet 192.168.205.133 32774
+Router>enable
+Router#configure terminal
+
+Router(config)#interface e0/0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface e0/0.10
+Router(config-subif)#encapsulation dot1q 10
+Router(config-subif)#ip address 10.0.10.1 255.255.255.0
+
+Router(config-subif)#interface e0/0.20
+Router(config-subif)#encapsulation dot1q 20            
+Router(config-subif)#ip address 10.0.20.1 255.255.255.0
+
+Router(config-subif)#exit
+Router(config)#exit
 ```
