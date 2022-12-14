@@ -4,51 +4,56 @@ import platform
 import validators
 
 
-def binsearch_request(MTU):
-    result = subprocess.run(f'ping {host} -c {count} -D -t 255 -s {MTU}', stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
-    # for testing on macos
+def mtu_check(mtu, host):
+    checker_command = ['ping', host, '-s', mtu, '-c', '1', '-D']
+    result = subprocess.Popen(checker_command,
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT,
+                         shell=True)
+
     if platform.system().lower() == 'darwin':
         if result.returncode == 0:
-            return 0, ""
+            return 0, None
         elif result.returncode == 2:
-            return 1, result.stderr
+            return 2, None
         else:
-            return 2, result.stderr
+            return -1, result.stderr
     else:
         return result.returncode, result.stderr
 
-      
 
-host, count = sys.argv[1], 1
+def bin_search(L, R, host):
+    while R - L > 1:
+        mid_mtu = (L + R) // 2
+        checker = mtu_check(mid_mtu, host)
+        if not checker[0]:
+            L = mid_mtu
+        elif checker[0] == 2:
+            R = mid_mtu
+        else:
+            print("ERROR: operation failed:", checker[1])
+            exit(1)
+    return L + 28
 
+
+if len(sys.argv) != 2:
+    print(f"ERROR: 1 argument expected, but {len(sys.argv) - 1} were given")
+    exit(1)
+
+host = sys.argv[1]
 if not validators.domain(host):
-    print("Host is not valid")
+    print("ERROR: host not valid")
     exit(1)
 
-if count is None:
-    count = 1
-elif not count.isnumeric():
-    print('Parameter c must be a number.')
-    exit(1)
-else:
-    count = int(count)
-
-result = subprocess.run(f'cat /proc/sys/net/ipv4/icmp_echo_ignore_all', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-if result.wait() != 0:
-    print("ICMP is blocked")
+icmp_check = "cat /proc/sys/net/ipv4/icmp_echo_ignore_all"  # https://askubuntu.com/questions/637470/how-to-check-if-icmp-blocking-is-enabled-in-a-system
+result = subprocess.run(icmp_check, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+if result.stdout:
+    print("ICMP blocked")
     exit(1)
 
-left, right = 64 - 28, 1519 - 28  
-while left + 1 < right:
-    mid = (left + right) // 2
-    # print(f'Last normal result: {left}; Current mid: {mid}')
-    returncode, err = binsearch_request(mid)
-    if returncode == 0:
-        left = mid
-    elif returncode == 1:
-        right = mid
-    else:
-        print(f'Something goes wrong. An error is occured: {err}')
-        exit(1)
+# ищем ответ бинпоиском
+L = 64 - 28
+R = 1519 - 28
+mtu_res = bin_search(L, R, host)
 
-print(f'MTU is {left + 28}')
+print(f"SUCCESS: MTU equals {mtu_res}")
