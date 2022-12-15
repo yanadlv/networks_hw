@@ -55,3 +55,17 @@ Router(config)#ip nat inside source list 100 pool pool
 Router(config)#exit
 Router#write
  ```
+
+### 3. Настройка нового маршрутизатора (R2).
+
+```
+Router>enable
+Router#configure terminal
+Router(config)#interface e0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 10.0.0.1 255.255.255.0
+Router(config-if)#exit
+Router(config)#exit
+Router#write
+```
+
