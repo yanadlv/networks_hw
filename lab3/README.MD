@@ -56,7 +56,7 @@ Router(config)#exit
 Router#write
  ```
 
-### 3. Настройка нового маршрутизатора (R2).
+## 3. Настройка нового маршрутизатора (R2).
 
 ```
 Router>enable
@@ -69,6 +69,18 @@ Router(config)#exit
 Router#write
 ```
 
-### 4. Настройка клиентов (Client1, Client2).
+## 4. Настройка клиентов (Client1, Client2).
 
-## Client1:
+### Client1:
+
+```
+VPCS> ip dhcp
+DDORA IP 10.0.10.11/24 GW 10.0.10.1
+```
+
+### Client2:
+
+```
+VPCS> ip dhcp
+DDORA IP 10.0.20.11/24 GW 10.0.20.1
+```
