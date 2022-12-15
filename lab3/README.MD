@@ -69,3 +69,6 @@ Router(config)#exit
 Router#write
 ```
 
+### 4. Настройка клиентов (Client1, Client2).
+
+## Client1:
